@@ -1,6 +1,11 @@
-# Lab 5 Usage
+# Network Trace Router usage.
 
-Overview usage for this lab.
+Overview usage for this project.
+
+## Dependancies
+- Needs graphviz library: Ubuntu install *sudo apt install graphviz*
+- Needs clang compiler
+- Needs python Version>=3.8
 
 ## Running the program
 - To clean: *make clean*
