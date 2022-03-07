@@ -12,12 +12,16 @@ lookup: dnslookup websites
 	xargs -a websites ./dnslookup > lookup
 
 traceroute: lookup
-	sudo ./trace.sh 
+	if ! [ -d "ipv4" ]; then mkdir ipv4; fi
+	if ! [ -d "ipv6" ]; then mkdir ipv6; fi
+	./trace.sh 
 
 processroutes:
-	python format_traceroute.py
+	if ! [ -d "processed_ipv4" ]; then mkdir processed_ipv4; fi
+	if ! [ -d "processed_ipv6" ]; then mkdir processed_ipv6; fi
+	python3 format_traceroute.py
 	cat processed_ipv4/* | sort | uniq > router-topology-v4.dot
 	cat processed_ipv6/* | sort | uniq > router-topology-v6.dot
-	python graphify.py
+	python3 graphify.py
 	dot -T pdf -o router-topology-v4.pdf router-topology-v4.dot
 	dot -T pdf -o router-topology-v6.pdf router-topology-v6.dot
